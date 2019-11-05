@@ -27,9 +27,10 @@ router.post('/signup', async (req,res,next)=>{
     user.password = await user.encryptPassword(user.password);
     await user.save();//guardar en bd el objeto
     
-    //guardar el token que retorna el metodo jwt.sign
+    //guardar en variable el token que retorna el metodo jwt.sign
     const token = jwt.sign({id:user._id},config.secret,{
-        expiresIn: 60*60*24 //24 horas en segundos
+        //expiresIn: 60*60*24 //expira en 24 horas en segundos
+        expiresIn: 60 //expira en 60 segundos para testear 
     })
 
     res.json({auth:true,token});
